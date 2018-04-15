@@ -1,0 +1,53 @@
+; ==================================================
+
+; ==================================================
+; INCLUDE GENERAL ISO 8583 DOMAIN DEFINITION
+; ==================================================
+
+#INCLUDE <ISO_8583.INC>
+
+; ==================================================
+; INCLUDE DEVICE SETTINGS
+; ==================================================
+
+#INCLUDE <DEVICE_ATM_VB24.INC>
+
+; ==================================================
+; REQUEST SPECIFIC SETTINGS
+; ==================================================
+
+#VALUE <CARD_NUMBER> = <4714870058624870>
+
+#VALUE <TRANSACTION_AMOUNT> = <000000032000>
+#VALUE <TRANSACTION_CURRENCY> = <[CURRENCY_CODE.RUB]>
+
+; ==================================================
+; REQUEST MESSAGE DEFINITION
+; ==================================================
+
+#MESSAGE <INT_5>
+        <MID> = <[TRANSACTION_TYPE.AUTHORIZATION_REQUEST]>
+        <F002> = <4093980008805528>
+        <F003> = <[TRANSACTION_CODE.ATM_BALANCE_INQUIRY][ACCOUNT_TYPE.UNKNOWN][ACCOUNT_TYPE.UNKNOWN]>
+        <F004> = <000000000000>
+        <F007> = <[%CurrentDate(MMDD)][%CurrentTime(2460SS)]>   ; Transmission Date and Time
+        <F011> = <[%Random(6)]>                                ; STAN
+        <F012> = <[%CurrentTime(2460SS)]>        ; Terminal Time
+        <F013> = <[%CurrentDate(MMDD)]>                ; Terminal Date
+        <F018> = <[MCC]>        
+        <F022> = <[POS_ENTRY_MODE]>
+        <F032> = <[AID]>
+        <F037> = <[%Random(12)]>
+        <F043> = <[TERMINAL_NAME_LOCATION]>        
+        <F044> = <[PINCVV_VERIFICATION_RESULT.OK][PINCVV_VERIFICATION_RESULT.OK]>
+        <F049> = <[TRANSACTION_CURRENCY]>
+        <F108> = <[%Random(12)]>
+#END
+
+; ==================================================
+; RUNTIME SECTION DEFINITION
+; ==================================================
+
+#RUNTIME
+        <INT_5>
+#END

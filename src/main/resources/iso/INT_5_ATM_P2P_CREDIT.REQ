@@ -1,0 +1,114 @@
+; ==================================================
+;
+; ID:
+; Social Payments test case
+;
+; DESC:
+;
+; ==================================================
+
+; ==================================================
+; INCLUDE GENERAL ISO 8583 DOMAIN DEFINITION
+; ==================================================
+
+#INCLUDE <ISO_8583.INC>
+
+
+; ==================================================
+; DEVICE SETTINGS 
+; ==================================================
+
+#VALUE <MCC> = <[MCC.FI_AUTOMATED_CASH_DISBUREMENTS]>
+#VALUE <POS_ENTRY_MODE> = <001>
+#VALUE <AID> = <12345>
+
+#VALUE <TERM_OWNER> =   <P-43-1 Terminal owner     |#~	>
+#VALUE <TERM_CITY> =    <P-43.2 Terminal city      |#~	>
+#VALUE <TERM_STATE> =   <010>
+#VALUE <TERM_COUNTRY> = <[COUNTRY_CODE.RU]>
+#VALUE <TERM_ADDRESS> = <P-43.5 Terminal address   |#~	>
+#VALUE <TERM_BRANCH> =  <P-43.6 Terminal branch    |#~	>
+#VALUE <TERM_REGION> = <P-43.7 Terminal region    |#~	>
+#VALUE <TERM_CLASS> = <[TERMINAL_CLASS.ATM]>
+#VALUE <TERM_DATE> = <[%CurrentDate(YEARMMDD)]>
+#VALUE <TERM_PS_NAME> = <P-43.1|#~	>
+#VALUE <TERM_FI_NAME> = <VISA>
+#VALUE <TERM_RETAILER_NAME> = <P-43.12 Terminal reta|#~	>
+#VALUE <TERM_COUNTY> = <000>
+#VALUE <TERM_ZIP> = <102030405>
+#VALUE <TERM_TIME_OFFSET> = <0060>
+#VALUE <CANL1> = <[TERM_OWNER][TERM_CITY][TERM_STATE][TERM_COUNTRY][TERM_ADDRESS][TERM_BRANCH][TERM_REGION][TERM_CLASS]>
+#VALUE <CANL2> = <[TERM_DATE][TERM_PS_NAME][TERM_FI_NAME][TERM_RETAILER_NAME][TERM_COUNTY][TERM_ZIP][TERM_TIME_OFFSET]>
+#VALUE <TERMINAL_NAME_LOCATION> = <[CANL1][CANL2]>
+
+
+; ==================================================
+; REQUEST SPECIFIC SETTINGS
+; ==================================================
+
+#VALUE <CARD_NUMBER> = <4714870009188967>
+
+#VALUE <PROCESSING_CODE> = <[TRANSACTION_CODE.POS_P2P_CREDIT][ACCOUNT_TYPE.UNKNOWN][ACCOUNT_TYPE.UNKNOWN]>
+
+; S-95
+#VALUE <REPLACEMENT_AMOUNT> = <000000080000>
+#VALUE <REPLACEMENT_ORIGINAL_AMOUNT> = <000000080000>
+
+; S-106
+#VALUE <TRANSACTION_AMOUNT> = <000000015300>
+#VALUE <TRANSACTION_CURRENCY> = <[CURRENCY_CODE.RUB]>
+
+#VALUE <TO_ACCOUNT_CURRENCY> = <[CURRENCY_CODE.RUB]>
+#VALUE <TO_ACCOUNT_AMOUNT> = <000000000000>
+#VALUE <ORIGINAL_AMOUNT> = <000000015300>
+#VALUE <ORIGINAL_CURRENCY> = <[CURRENCY_CODE.RUB]>
+#VALUE <SOURCE_ACCOUNT_RATE> = <00000000>
+#VALUE <DESTINATION_ACCOUNT_RATE> = <00000000>
+
+; S-121
+#VALUE <TRANCATEGORY> = <00>
+#VALUE <DRAFTCAPTURE> = <3>
+#VALUE <CVV2> = <000>
+#VALUE <CLERK> = <                >
+#VALUE <INVOICENUM> = <000100AAAAAAAAAA>
+#VALUE <SEQNUM> = <         >
+
+
+; ==================================================
+; REQUEST MESSAGE DEFINITION
+; ==================================================
+;
+#MESSAGE <INT_5_TEST>
+	<MID> = <[TRANSACTION_TYPE.AUTHORIZATION_REQUEST]>
+	<F002> = <[CARD_NUMBER]>
+	<F003> = <[PROCESSING_CODE]>
+	<F004> = <[TRANSACTION_AMOUNT]>
+	<F007> = <[%CurrentDate(MMDD)][%CurrentTime(2460SS)]>	; Transmission Date and Time
+	<F011> = <[%Random(6)]>				; STAN
+	<F012> = <[%CurrentTime(2460SS)]>	; Terminal Time
+	<F013> = <[%CurrentDate(MMDD)]>		; Terminal Date
+	<F018> = <[MCC]>
+	<F022> = <[POS_ENTRY_MODE]>
+	<F032> = <12347>	; Acquirer ID
+	;<F035>=  <[CARD_NUMBER]=1105>
+	<F037> = <[%Random(12)]>
+	;<F038> = <10258>
+	;<F039> = <00001>
+	<F041> = <T0123456789>	; Terminal
+	<F043> = <[TERMINAL_NAME_LOCATION]>
+	<F044> = <[PINCVV_VERIFICATION_RESULT.OK][PINCVV_VERIFICATION_RESULT.OK]>
+	<F049> = <[TRANSACTION_CURRENCY]>
+	;<F095> = <[REPLACEMENT_AMOUNT][REPLACEMENT_ORIGINAL_AMOUNT]>
+	<F106> = <[TO_ACCOUNT_CURRENCY][ORIGINAL_CURRENCY][TO_ACCOUNT_AMOUNT][ORIGINAL_AMOUNT][SOURCE_ACCOUNT_RATE][DESTINATION_ACCOUNT_RATE]>
+	<F108> = <[%Random(12)]>
+	<F121> = <[TRANCATEGORY][DRAFTCAPTURE][CVV2][CLERK][INVOICENUM][SEQNUM]>
+	<F123> = <P2=4714870080883056>
+#END
+
+; ==================================================
+; RUNTIME SECTION DEFINITION
+; ==================================================
+
+#RUNTIME
+	<INT_5_TEST>
+#END

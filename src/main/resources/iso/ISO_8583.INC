@@ -1,0 +1,94 @@
+; ==================================================
+; FILE: ISO_8538.INC
+; ORIG: Leszek Kroczynski
+; DESC: ISO 8583 Common Domain Definition
+; ==================================================
+;16/03/2015 changed by alexandra tomashevskaya for CR#292
+;22/07/2016 changed by Pedro Pombal for CR#514
+;18/08/2017 J.Checia Added transaction code 124
+
+#DOMAIN <TRANSACTION_TYPE>:
+	<AUTHORIZATION_REQUEST> = <0100>
+	<AUTHORIZATION_REQUEST_REJECT> = <9100>
+	<AUTHORIZATION_ADVICE> = <0120>
+	<FINANCIAL_TRANSACTION_ADVICE> = <0220>
+	<AUTHORIZATION_ADVICE_REJECT> = <9120>
+	<REVERSAL_ADVICE> = <0420>
+	<REVERSAL_ADVICE_REJECT> = <9420>
+	<NETWORK_MANAGEMENT> = <0800>
+#END
+
+#DOMAIN <TRANSACTION_CODE>:
+	    <ATM_WITHDRAWAL> = <010>
+        <ATM_DEPOSIT> = <020>
+        <ATM_BALANCE_INQUIRY> = <030>
+        <ATM_PAYMENT> = <050>
+        <ATM_P2P_DEBIT> = <063>
+        <ATM_P2P_CREDIT> = <064>
+        <ATM_STATEMENT_PRINT> = <070>
+        <ATM_PIN_CHANGE> = <081>
+        <POS_PURCHASE> = <110>
+        <POS_PREAUTHORIZATION_PURCHASE> = <111>
+        <POS_PREAUTHORIZATION_PURCHASE_INCREMENT> = <124>
+        <POS_PREAUTHORIZATION_PURCHASE_COMPLETION> = <112>
+        <POS_MAIL_PHONE_ORDER> = <113>
+        <POS_MERCHANDISE_RETURN> = <114>
+        <POS_CASH_ADVANCE> = <115>
+        <POS_CARD_VERIFICATION> = <116>
+        <POS_BALANCE_INQUIRY> = <117>
+        <POS_QUASI_CASH> = <130>
+        <POS_P2P_DEBIT> = <132>
+        <POS_P2P_CREDIT> = <133>
+        <POS_DEPOSIT> = <140>
+        <POS_PAYMENT> = <142>
+#END
+
+#DOMAIN <ACCOUNT_TYPE>:
+	<CHECKING> = <01>
+	<UNKNOWN> = <00>
+#END
+
+#DOMAIN <CURRENCY_CODE>:
+	<RUB> = <643>
+	<USD> = <840>
+	<EUR> = <978>
+	<PLN> = <566>
+#END
+
+#DOMAIN <TERMINAL_CLASS>:
+	<ATM> = <001>
+	<POS> = <002>
+	<CRT> = <003>
+	<TELEBANK> = <004>
+#END
+
+#DOMAIN <COUNTRY_CODE>:
+	<RU> = <643>
+	<PL> = <616>
+	<US> = <840>
+#END
+
+#DOMAIN <MCC>:
+	<PROFESSIONAL_SERVICES> = <8999>
+	<FI_MANUAL_CASH_DISBUREMENTS> = <6010>
+	<FI_AUTOMATED_CASH_DISBUREMENTS> = <6011>
+	<UNITED_AIRLINES> = <3000>
+#END
+
+#DOMAIN <PINCVV_VERIFICATION_RESULT>:
+	<OK> = <1>
+	<FAILED> = <0>
+;	<NOT_PERFORMED> = < >
+#END
+
+#DOMAIN <BALANCE_CURRENCY_OPTION>:
+	<ACCOUNT_CURRENCY> = <1>
+	<TRANSACTION_CURRENCY> = <0>
+#END
+
+; NMIC = Network Management Information Code
+#DOMAIN <NMIC>
+	<LOGON> = <001>
+	<LOGOFF> = <002>
+	<ECHO> = <301>
+#END

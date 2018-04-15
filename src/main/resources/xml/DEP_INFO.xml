@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<message type="RPC_REQST">
+	<origMsgID>%%messageid%%</origMsgID> 
+	<origSysID>00045</origSysID> 
+	<origPrcID>UTP</origPrcID> 
+	<targSysID>PROF</targSysID> 
+ 	<timeStamp>%%timestamp%%</timeStamp> 
+	<msgContext /> 
+	<command name="RPC-DEP_INFO">
+		<field name="mrpcID">4002</field>
+		<field name="version">1</field>
+		<field name="acn"></field>
+		<field name="contract_number">%%zcontract%%</field>
+                <field name="portfolio">1</field>
+	</command>
+</message>
