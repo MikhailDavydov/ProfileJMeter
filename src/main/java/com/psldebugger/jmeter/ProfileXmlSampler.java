@@ -12,10 +12,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystem;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.spi.FileSystemProvider;
 import java.sql.*;
 import org.apache.jmeter.protocol.jdbc.config.DataSourceElement;
 import java.text.DateFormat;
@@ -135,16 +137,23 @@ public class ProfileXmlSampler extends AbstractJavaSamplerClient {
 		return sampleResult;
 	}
 	
-	private FileSystem initFileSystem(URI uri) throws IOException {
+	private void initFileSystem(URI uri) throws IOException {
 		
-	    try {
-	        return FileSystems.newFileSystem(uri, Collections.emptyMap());
-	    }catch(IllegalArgumentException e) {
-	        return FileSystems.getDefault();
+	   for (FileSystemProvider provider: FileSystemProvider.installedProviders()) {		   
+	        if (provider.getScheme().equalsIgnoreCase("jar")) {
+	            try {
+	                provider.getFileSystem(uri);
+	            } catch (FileSystemNotFoundException e) {
+	                // in this case we need to initialize it first:
+	                provider.newFileSystem(uri, Collections.emptyMap());
+	            }
+	        }
 	    }
 	}
 	
 	private String readResource(String resourceName) throws URISyntaxException, IOException {
+		
+		LOGGER.info("ProfileXmlSampler.readResource(\"" +  resourceName + "\")");
 		
 		URI fileURI = getClass().getResource(resourceName).toURI();
 		initFileSystem(fileURI);
@@ -152,7 +161,7 @@ public class ProfileXmlSampler extends AbstractJavaSamplerClient {
 		Path path = Paths.get(fileURI);       
 		byte[] fileBytes = Files.readAllBytes(path);
 
-		LOGGER.info("ProfileXmlSampler.readResource: " +  new String(fileBytes));
+		LOGGER.info("ProfileXmlSampler.readResource results: " +  new String(fileBytes));
 		
 		return new String(fileBytes);
 	}	
