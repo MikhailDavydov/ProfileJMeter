@@ -148,6 +148,39 @@
           <stringProp name="classname">com.psldebugger.jmeter.ProfileXmlSampler</stringProp>
         </JavaSampler>
         <hashTree/>
+        <JavaSampler guiclass="JavaTestSamplerGui" testclass="JavaSampler" testname="Cash-In" enabled="true">
+          <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="host" elementType="Argument">
+                <stringProp name="Argument.name">host</stringProp>
+                <stringProp name="Argument.value">172.29.7.82</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="port" elementType="Argument">
+                <stringProp name="Argument.name">port</stringProp>
+                <stringProp name="Argument.value">19260</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="advice template" elementType="Argument">
+                <stringProp name="Argument.name">advice template</stringProp>
+                <stringProp name="Argument.value">INT_5_AUTHORIZATION_ADVICE_020.REQ</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="request template" elementType="Argument">
+                <stringProp name="Argument.name">request template</stringProp>
+                <stringProp name="Argument.value">INT_5_AUTHORIZATION_REQUEST_020.REQ</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="card" elementType="Argument">
+                <stringProp name="Argument.name">card</stringProp>
+                <stringProp name="Argument.value">4893500000060864</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="classname">com.psldebugger.jmeter.CashInSampler</stringProp>
+        </JavaSampler>
+        <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
