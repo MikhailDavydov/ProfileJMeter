@@ -5,10 +5,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.FileSystem;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.spi.FileSystemProvider;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -64,14 +66,19 @@ public class IsoTemplate {
 		return timeFormat.format(new Date());
 	}
 	
-	static private FileSystem initFileSystem(URI uri) throws IOException {
+	private static void initFileSystem(URI uri) throws IOException {
 		
-	    try {
-	        return FileSystems.newFileSystem(uri, Collections.emptyMap());
-	    }catch(IllegalArgumentException e) {
-	        return FileSystems.getDefault();
+	   for (FileSystemProvider provider: FileSystemProvider.installedProviders()) {		   
+	        if (provider.getScheme().equalsIgnoreCase("jar")) {
+	            try {
+	                provider.getFileSystem(uri);
+	            } catch (FileSystemNotFoundException e) {
+	                // in this case we need to initialize it first:
+	                provider.newFileSystem(uri, Collections.emptyMap());
+	            }
+	        }
 	    }
-	}
+	}	
 	
 	private final static Pattern funcPattern = Pattern.compile("%(\\w+)\\((\\w+)\\)");	
 	String calculateFunction(String fs) {
