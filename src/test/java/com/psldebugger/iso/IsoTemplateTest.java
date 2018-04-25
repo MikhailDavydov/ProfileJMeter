@@ -66,7 +66,10 @@ public class IsoTemplateTest {
 		
 		String line = "#VALUE <CANL1> = <[TERM_OWNER][TERM_CITY][TERM_STATE][TERM_COUNTRY][TERM_ADDRESS][TERM_BRANCH][TERM_REGION][TERM_CLASS]>";
 		Matcher valueMatcher = valuePattern.matcher(line);
-		assertTrue(valueMatcher.matches());		        
+		assertTrue(valueMatcher.matches());
+		String line2 = "#VALUE <PROCESSING_CODE> = <[TRANSACTION_CODE.ATM_DEPOSIT][ACCOUNT_TYPE.UNKNOWN][ACCOUNT_TYPE.CHECKING]>";
+		Matcher valueMatcher2 = valuePattern.matcher(line2);		
+		assertTrue(valueMatcher2.matches());
 	}	
 	
 	@Test

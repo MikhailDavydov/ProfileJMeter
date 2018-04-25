@@ -11,19 +11,14 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystemNotFoundException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.spi.FileSystemProvider;
 import java.sql.*;
 import org.apache.jmeter.protocol.jdbc.config.DataSourceElement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -137,26 +132,12 @@ public class ProfileXmlSampler extends AbstractJavaSamplerClient {
 		return sampleResult;
 	}
 	
-	private void initFileSystem(URI uri) throws IOException {
-		
-	   for (FileSystemProvider provider: FileSystemProvider.installedProviders()) {		   
-	        if (provider.getScheme().equalsIgnoreCase("jar")) {
-	            try {
-	                provider.getFileSystem(uri);
-	            } catch (FileSystemNotFoundException e) {
-	                // in this case we need to initialize it first:
-	                provider.newFileSystem(uri, Collections.emptyMap());
-	            }
-	        }
-	    }
-	}
-	
 	private String readResource(String resourceName) throws URISyntaxException, IOException {
 		
 		LOGGER.info("ProfileXmlSampler.readResource(\"" +  resourceName + "\")");
 		
 		URI fileURI = getClass().getResource(resourceName).toURI();
-		initFileSystem(fileURI);
+		Utils.initFileSystem(fileURI);
 		
 		Path path = Paths.get(fileURI);       
 		byte[] fileBytes = Files.readAllBytes(path);
