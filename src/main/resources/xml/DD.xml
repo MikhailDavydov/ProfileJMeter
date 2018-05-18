@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<message type="RPC_REQST">
+    <origMsgID>%%messageid%%</origMsgID>
+    <origSysID>BPM</origSysID>
+    <origPrcID>testUtil</origPrcID>
+    <targSysID>PROF</targSysID>
+    <timeStamp>%%timestamp%%</timeStamp>
+    <msgContext></msgContext>
+       <command name="RPC-TRN_PROC">
+             <field name="mrpcID">1030</field>
+             <field name="version">1</field>
+             <field name="fqual" type="fqual">
+                    <subField name="acct" ref="acct"></subField>
+                    <subField name="tamt" ref="tamt"></subField>
+                    <subField name="custcd" ref="custcd"></subField>
+                    <subField name="tcmt" ref="tcmt"></subField>
+                    <subField name="tresref" ref="tresref"></subField>
+                    <subField name="rate" ref="rate"></subField>
+                    <subField name="zccode" ref="zccode"></subField>
+                    <subField name="zfeeccode" ref="zfeeccode"></subField>
+                    <subField name="zrole" ref="zrole"></subField>
+                    <subField name="phc" ref="phc"></subField>   
+                    <subField name="expdt" ref="expdt"></subField>   
+                    <subField name="ztrm" ref="ztrm"></subField>
+                    <subField name="zauthid" ref="zauthid"></subField>
+                    <subField name="atmc" ref="atmc"></subField>  
+                    <subField name="zfeetyp" ref="zfeetyp"></subField>
+                    <subField name="zfeeseq" ref="zfeeseq"></subField>
+                    <subField name="zsetfee" ref="zsetfee"></subField>
+             </field>
+             <field name="tqual" type="tqual">
+                    <subField name="acct" ref="acct">%%zcontract%%</subField>
+                    <subField name="tamt" ref="tamt"></subField>
+                    <subField name="custcd" ref="custcd"></subField>
+                    <subField name="tcmt" ref="tcmt"></subField>
+                    <subField name="tresref" ref="tresref"></subField>
+                    <subField name="rate" ref="rate"></subField>
+                    <subField name="zccode" ref="zccode"></subField>
+                    <subField name="zfeeccode" ref="zfeeccode"></subField>
+                    <subField name="zrole" ref="zrole"></subField>
+                    <subField name="phc" ref="phc"></subField>
+                    <subField name="expdt" ref="expdt"></subField>
+                    <subField name="ztrm" ref="ztrm"></subField>
+                    <subField name="zsetfee" ref="zsetfee"></subField>
+             </field>
+             <field name="gqual" type="gqual">
+                    <subField name="mode" ref="mode">0</subField>
+                    <subField name="sysid" ref="sysid"></subField>
+                    <subField name="spr" ref="spr">%%timestamp%%</subField>
+                    <subField name="amttype" ref="amttype">0</subField>
+                    <subField name="inst" ref="inst"></subField>
+                    <subField name="srcmode" ref="srcmode">0</subField>
+                    <subField name="tamt" ref="tamt">190</subField>
+                    <subField name="brcd" ref="brcd">0</subField>
+                    <subField name="bcrcd" ref="bcrcd">RUB</subField>
+                    <subField name="efd" ref="efd"></subField>
+                    <subField name="uid" ref="uid"></subField>
+                    <subField name="zchnl" ref="zchnl">BRANCH</subField>
+                    <subField name="trntype" ref="trntype">731500-00</subField>
+                    <subField name="fndsrc" ref="fndsrc"></subField>
+                    <subField name="fndrec" ref="fndrec"></subField>
+                    <subField name="zpriord" ref="zpriord"></subField>
+                    <subField name="zauthmet" ref="zauthmet">CIFID</subField>
+					<subField name="fdtresp" ref="fdtresp">0</subField>
+					<subField name="zpfolio" ref="zpfolio">0</subField>
+             </field>
+       </command>
+</message>
